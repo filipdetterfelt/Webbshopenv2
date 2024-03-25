@@ -161,3 +161,27 @@ width: 50vw;
   
 }
 
+.cart{
+  display:none;
+  background-color: #ADE8F4;
+  position: fixed;
+  height: 80%;
+  width: 80%;
+  top: 10.5%;
+  left: 10%;
+  overflow-y: auto;
+  scrollbar-width: none;
+  border-radius: 10px;
+  box-shadow: 10px 5px 5px 5px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  
+}
+
+#kundvagn-ikon:hover{
+ cursor: pointer;
+}
+
+#counter{
+ 
+  pointer-events: none;
+}

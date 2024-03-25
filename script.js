@@ -1,3 +1,6 @@
+//Lista till shopingcart
+const shoppingCart = new Array()
+
 async function fetchProducts() {
     try {
         const response = await fetch('https://fakestoreapi.com/products/')
@@ -66,6 +69,9 @@ async function createCard() {
             
             click++;
             document.querySelector('#counter').textContent = (click);
+            shoppingCart.push(cardButton.getAttribute('buttonid'));
+            console.log(shoppingCart);
+            
         });
 
 
@@ -112,7 +118,7 @@ const buyButton = document.querySelector('.buy-button');
 buyButton.addEventListener('click', function(event) {
     event.preventDefault();
 
-    const inCart = document.querySelector('#inCart')
+    
     const form = document.querySelector('#kontaktForm')
 
     if(!form.checkValidity()) {
@@ -138,9 +144,13 @@ buyButton.addEventListener('click', function(event) {
         createCustomerList();
         createProductList();
         window.location.href = 'order-conf.html';
-        window.location.href = 'cart.html';
+        
+
     }
+    
 });
+
+
 
 
 function productInfo(image, title, desc, price, productId) {
@@ -198,3 +208,16 @@ const prodInfo = document.querySelector('.product-info')
 cancelButton.addEventListener('click', function(event){
 prodInfo.style.display="none"
 });
+
+
+document.querySelector('#kundvagn-ikon').addEventListener('click', () =>{
+  
+    document.querySelector('.cart').style.display = 'block';
+})
+
+//Stänga ner varukorgen
+document.querySelector('.exitbutton').addEventListener('click', ()=>{
+    
+    document.querySelector('.cart').style.display ='none';
+    
+})

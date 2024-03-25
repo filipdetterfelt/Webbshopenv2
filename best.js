@@ -40,8 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 });
 
-var inTheCart = document.querySelector('inCart');
-inTheCart.innerHTML = '<p>'+productInfo(title);
+
 
 
 function genereraDagensDatum() {
