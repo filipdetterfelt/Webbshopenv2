@@ -49,7 +49,7 @@ async function createCard() {
         
 
         cardButton.addEventListener('click', () => {
-            console.log('hello3')
+            /*console.log('hello3')
             const productForm = document.querySelector('.product-info');
         
             productForm.style.display = "none";
@@ -58,7 +58,7 @@ async function createCard() {
                 product.description, 
                 `Price: $${product.price}`, 
                 product.id);
-            console.log(cardButton.getAttribute('buttonid'))
+            console.log(cardButton.getAttribute('buttonid'))*/
 
             const buyButton = document.querySelector('.buy-button')
             buyButton.setAttribute('buyButtonId', product.id)
@@ -71,9 +71,19 @@ async function createCard() {
             document.querySelector('#counter').textContent = (click);
             shoppingCart.push(cardButton.getAttribute('buttonid'));
             console.log(shoppingCart);
+            addToCart(product.id);
             
+            
+
         });
 
+        function addToCart(productId){
+           var shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
+        
+            shoppingCart.push(productId);
+        
+            localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
+        }
 
         aboutCardButton.addEventListener('click', () => {
             console.log('hello3')
@@ -107,6 +117,26 @@ async function createCard() {
 
 createCard();
 
+//Funktion för att Visa cart
+/*function showCart(productId){
+    const cartElement = document.querySelector('.cart .col');
+    cartElement.innerHTML ='';
+
+    shoppingCart.forEach(productId =>{
+       const product = productList.find(item => item.id == productId );
+       if (product){
+        const titleDiv = document.createElement('<div>');
+        titleDiv.textContent = product.title;
+        cartElement.appendChild(titleDiv);
+       }  
+    })
+}
+
+//Skapa innehåll i cart
+function addCart(){
+    const cartElement = document.querySelector('.cart .col');
+    cartElement.innerHTML ='';
+}*/
 
 /* const buyButton2 = document.querySelector('.buy-button');
 buyButton2.addEventListener('click', function(event) {
@@ -120,6 +150,8 @@ buyButton.addEventListener('click', function(event) {
 
     
     const form = document.querySelector('#kontaktForm')
+    const productId = buyButton.getAttribute('buyButtonId');
+    addToCart(productId);
 
     if(!form.checkValidity()) {
         console.log('12')
@@ -143,6 +175,7 @@ buyButton.addEventListener('click', function(event) {
         } */
         createCustomerList();
         createProductList();
+        shoppingCart.push(productList);
         window.location.href = 'order-conf.html';
         
 
@@ -159,6 +192,8 @@ function productInfo(image, title, desc, price, productId) {
     productInfo.querySelector('.info-title').textContent = title;
     productInfo.querySelector('.info-desc').textContent = desc;
     productInfo.querySelector('.info-price').textContent = price;
+
+    prodInfo.addEventListener('click',() => localStorage.setItem('title', title));
 
     const infoButton = productInfo.querySelector('.info-button');
     infoButton.setAttribute('buttonid', productId);
@@ -213,11 +248,81 @@ prodInfo.style.display="none"
 document.querySelector('#kundvagn-ikon').addEventListener('click', () =>{
   
     document.querySelector('.cart').style.display = 'block';
-})
+    
+    var cartElement = document.querySelector('.cart');
+   /*cartElement.innerHTML ='';*/
+
+    console.log('Product List:', productList); // Felsökning: Kontrollera productList
+    console.log('Shopping Cart:', shoppingCart); 
+    var pArtNbr = document.createElement('p');
+    
+    //pArtNbr.className = 'p-contentcart';
+
+    //var pTitle = document.createElement('p');
+    //pTitle.className = 'p-title';
+    
+    /*for(let i = 0; i < shoppingCart.length; i++ ){
+        const prductId = shoppingCart[i];
+        pArtNbr.innerHTML += 'Artikelnummer: '+prductId + '<br>';
+    }*/
+
+    
+    
+    /*shoppingCart.forEach(productId => {
+        pArtNbr.innerHTML += 'Artikelnummer: '+productId + ' Title: ' + '<br>';
+        
+    })*/
+    
+    
+    shoppingCart.forEach(productId => {
+        const product = productList.find(item => item.id === parseInt(productId));
+        console.log('Price: '+product.price+ ' Title: '+ product.title)
+
+        console.log('Product with ID', productId, 'found:', product);
+        console.log('Cart Element:', cartElement);
+        if (product){
+            var productDiv = document.createElement('div');
+            productDiv.classList.add('cart-item');
+
+            var image = document.createElement('img');
+            image.src = product.image;
+            image.alt = product.title;
+            productDiv.appendChild(image);
+
+            var title = document.createElement('p');
+            title.textContent += 'Title: '+ product.title;
+            productDiv.appendChild(title);
+
+            var price = document.createElement('p');
+            price.textContent = 'Price: $'+product.price;
+            productDiv.appendChild(price);
+
+            
+            
+
+            cartElement.appendChild(productDiv);
+            
+        }
+
+        
+    });
+
+    
+
+    
+    
+
+    //document.querySelector('.cart').appendChild(pArtNbr);
+    //document.querySelector('.cart').appendChild(pTitle);
+});
+
 
 //Stänga ner varukorgen
-document.querySelector('.exitbutton').addEventListener('click', ()=>{
+document.querySelector('.kryss').addEventListener('click', ()=>{
     
     document.querySelector('.cart').style.display ='none';
     
 })
+
+
+

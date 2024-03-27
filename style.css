@@ -17,8 +17,10 @@ body {
 }
 
 .logo {
-  font-size: 70px;
+  font-size: 80px;
   font-weight: bold;
+  margin-top: -6%;
+
 }
 
 .thanks-msg {
@@ -179,9 +181,36 @@ width: 50vw;
 
 #kundvagn-ikon:hover{
  cursor: pointer;
+ transform: scale(1.1);
+ transition: transform 0.5s ease;
 }
 
 #counter{
- 
   pointer-events: none;
+  transform: scale(1.1);
+ transition: transform 0.5s ease;
+}
+
+.about-card-button:hover{
+  box-shadow: 10px 5px 5px 5px rgba(0, 0, 0, 0.2);
+  background-color: black;
+  
+}
+
+.card-button:hover{
+  box-shadow: -10px 5px 5px 5px rgba(0, 0, 0, 0.2);
+  background-color: black;
+}
+
+/*.navbar{
+  background-color: red;
+  height: 50px;
+  width: 100%;
+  position: relative;
+  top: 65px;
+  left: -10%;
+}*/
+
+.kryss{
+ cursor: pointer;
 }

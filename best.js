@@ -37,8 +37,58 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var datumBstElement = document.getElementById('datumBst')
     datumBstElement.innerHTML = '<h5>Beställningsdatum: ' + genereraDagensDatum() + '</h5>';
+
+
     
 });
+
+
+
+/*document.addEventListener('DOMContentLoaded', function(){
+    var shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
+    if(shoppingCart && shoppingCart.length > 0){
+        var cartElement = document.querySelector('.cart .col');
+        cartElement.innerHTML = '';
+
+        shoppingCart.forEach(productId => {
+            var product = productList.find(item => item.id == productId);
+
+            if (product){
+                var productDiv = document.createElement('div');
+                productDiv.classList.add('cart-item');
+                productDiv.innerHTML = '<div class="product-title">${product.title}</div> <div class="product-price">$${product.price}<7div>';
+                cartElement.appendChild(productDiv);
+            }
+        });
+    } else{
+        console.log('Varukorgen är tom');
+    }
+});*/
+
+/*var productData = JSON.parse(localStorage.getItem('productData'));
+if(productData){
+    var productToCart = document.querySelector('.cart');
+    for(var key in productData){
+        if(productData.hasOwnProperty(key)){
+            var pContent = document.createElement('<p>');
+            pContent.className = 'product-cart';
+            if(key === 'Price'){
+                pContent.textContent ='$';
+            }
+            pContent.textContent = key.charAt(0).toUpperCase() + key.slice(1) + ': ' + pContent.textContent + productData[key].charAt(0).toUpperCase() + productData[key].slice(1);
+            productToCart.appendChild(pContent);
+        }
+        else{
+            console.log('Något gick fel, saknar nyckel')
+        }
+    }
+    }else{
+        console.log('Något gick fel, saknar input');
+    }*/
+
+
+
+
 
 
 
