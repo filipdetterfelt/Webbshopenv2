@@ -338,6 +338,7 @@ document.querySelector('#kundvagn-ikon').addEventListener('click', () => {
             var amount = document.createElement('p');
             amount.textContent = `Amount: ${amountInShoppingCart}`;
             amount.className = "cart-amount";
+        
             productDiv.appendChild(amount);
 
             var amount = document.createElement('p');
@@ -379,7 +380,11 @@ document.querySelector('#kundvagn-ikon').addEventListener('click', () => {
             headerPrice.push(totalSum);
             const totalHeaderSum = headerPrice.reduce((total, current) => total + current, 0);
             console.log(`listan med alla priser är ${headerPrice}`);
-           
+
+            var deleteOneProduct = document.createElement('img');
+            deleteOneProduct.src = 'images/trash.png';
+            deleteOneProduct.className = 'delete-one-product';
+            productDiv.appendChild(deleteOneProduct)
 
             
             totalSum = 0;
@@ -387,6 +392,24 @@ document.querySelector('#kundvagn-ikon').addEventListener('click', () => {
             console.log(`Det totala priset är ${totalHeaderSum}`);
             var changeSum = document.querySelector('.totalSum');
             changeSum.textContent = `Total Price: $${totalHeaderSum}`;
+
+           /* var amountPlus = document.createElement('button');
+            amountPlus.textContent = '\u002b';
+            amountPlus.className ="amount-plus"
+            productDiv.appendChild(amountPlus);
+
+            var amountMinus = document.createElement('button');
+            amountPlus.textContent = '\u002d';
+            amountMinus.className = "amount-minus"
+            productDiv.appendChild(amountMinus);*/
+
+            /*var amountInput = document.createElement('input');
+            input.type = 'number';
+            amountInput.className = "amount-input"
+            productDiv.appendChild(amountInput);*/
+            
+
+            
         }
 
         
@@ -410,6 +433,7 @@ document.querySelector('.kryss').addEventListener('click', ()=>{
     const cart = document.querySelector('.cart');
     cart.style.display ='none';
     const cartCenter = document.querySelector('.cart-center');
+
     
 
     
@@ -420,5 +444,50 @@ document.querySelector('.kryss').addEventListener('click', ()=>{
 
 })*/
 
+document.querySelector('.empty-all').addEventListener('click', () => {
+    localStorage.clear();
+    shoppingCart.splice(0, shoppingCart.length);
+    var deleteCart = document.querySelector('.cart-center');
+    var deleteCartPrice = document.querySelector('.totalSum');
+    var deleteCartTrash = document.querySelector('.empty-all');
+
+    deleteCart.innerHTML = "";
+    deleteCartPrice.textContent ="";
+    deleteCartTrash.style.display ="none";
+
+    //updateCartGui();
+    
+})
 
 
+/*document.querySelector('.delete-one-product').forEach(button => {
+    button.addEventListener('click', () => {
+        const productToDelete = button.getAttribute('productId');
+
+        const productIndexDelete = shoppingCart.findIndex(id => id === productIndexDelete);
+
+        if (productIndexDelete !== -1){
+            shoppingCart.splice(productIndexDelete, 1);
+            localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
+        }
+    });
+});*/
+
+/*function updateCartGui(){
+    const cartItemsE = document.querySelector('.cart-items'); //cart-center ist ???
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'update_cart.php');
+    xhr.onload = function (){
+        if(xhr.status === 200){
+            cartItemsE.innerHTML = xhr.responseText;
+        }
+        else{
+            console.error("Failed to update the cart:", xhr.statusText);
+        }
+    };
+    xhr.onerror = function(){
+        ("Failed to update cart:",xhr.statusText);
+    };
+    xhr.send();
+    
+}*/

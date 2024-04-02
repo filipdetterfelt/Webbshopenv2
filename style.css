@@ -287,4 +287,45 @@ width: 50vw;
   
 }
 
+.empty-all:hover{
+cursor: pointer;
+ transform: scale(1.1);
+ transition: transform 0.5s ease;
+}
 
+.delete-one-product{
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.delete-one-product:hover{
+  cursor: pointer;
+   transform: scale(1.1);
+   transition: transform 0.5s ease;
+  }
+
+  .amount-input{
+    display: flex;
+    align-items: center;
+    width: fit-content;
+  }
+
+  .amount-minus,
+  .amount-plus{
+    padding: 5px 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    width: 30px;
+
+  }
+
+  .amount-minus{
+    margin-left: 10px;
+  }
+
+  .amount-plus{
+    margin-right: 10px;
+  }
