@@ -15,11 +15,21 @@
 
   <body>
     <div class="cart">
-      <div class="exitbutton d-flex justify-content-end">
-        <img src="images/exit.png" class="kryss" />
+      <div class="cart-header">
+        <button type="button" class="lets-buy btn btn-success">Checkout</button>
+        <div class="exitbutton d-flex justify-content-end">
+          <img src="./images/exit.png" class="kryss" />
+        </div>
+        <h1 class="d-flex justify-content-center">Din varukorg:</h1>
+        <h3 class="d-flex justify-content-center totalSum"></h3>
+        <p class="empty-all"></p>
       </div>
-      <h1 class="ms-4">Din varukorg:</h1>
+
+      <div class="cart-center"></div>
+
+      <div class="cart-footer d-flex justify-content-end"></div>
     </div>
+
     <div class="container-fluid">
       <div class="product-info">
         <div
@@ -126,13 +136,17 @@
         </div>
 
         <div class="col-2 head-box">
-          <img
-            id="kundvagn-ikon"
-            src="./images/kundvagn.png"
-            class="img-fluid kundvagn"
-          />
+          <div class="row">
+            <div class="col cart-counter-box">
+              <img
+                id="kundvagn-ikon"
+                src="./images/kundvagn.png"
+                class="img-fluid kundvagn"
+              />
 
-          <div id="counter"></div>
+              <div id="counter" class="counter"></div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -148,7 +162,7 @@
 
     <div class="row-fluid">
       <div class="footer-box">
-        <h6 class="text-center p-3">&copy; Copyright, Group1 JAVAD23</h6>
+        <h6 class="text-center p-3">&copy; Copyright, Filip Detterfelt</h6>
       </div>
     </div>
 

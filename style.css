@@ -115,6 +115,17 @@ a:hover {
   max-width: 25%;
 }
 
+#counter{
+  position: absolute;
+  /* top: 16.5%;
+  right: 7.5%; */
+  color: red;
+  font-size: 130%;
+  font-family: fantasy;
+  /* margin-top: -8.5vh; */
+
+}
+
 @media (max-width: 475px) {
   .product-info {
       width: 100%;
@@ -123,6 +134,15 @@ a:hover {
       top: 0;
       border-radius: 0px;
       padding: 10px;
+  }
+
+  .kundvagn {
+    width: 50px;
+    height: 50px;
+  }
+
+  #counter {
+    font-size: 80%;
   }
 }
 
@@ -135,26 +155,25 @@ a:hover {
       border-radius: 10px;
       padding: 10px;
   }
-}
 
-#counter{
-  color: red;
-  font-size: 25px;
-  font-family: fantasy;
-  margin-left: -55px;
-
- 
-}
-
-@media (min-width: 475px) and (max-width: 600px) {
-.head-box{
-  color: red;
-  font-size: 25px;
-  font-family: fantasy;
-  margin-left: -55px;
-
+  .kundvagn {
+    width: 75px;
+    height: 75px;
   }
+
+  #counter {
+    font-size: 100%;
+  }
+
+  /* .head-box {
+    color: red;
+    font-size: 25px;
+    font-family: fantasy;
+    margin-left: -55px;
+  
+    } */
 }
+
 
 .inCart{
 background-color: #ADE8F4;
@@ -163,7 +182,7 @@ width: 50vw;
   
 }
 
-.cart{
+.cart {
   display:none;
   background-color: #ADE8F4;
   position: fixed;
@@ -177,6 +196,16 @@ width: 50vw;
   box-shadow: 10px 5px 5px 5px rgba(0, 0, 0, 0.2);
   padding: 10px;
   
+}
+
+.cart-counter-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kundvagn {
+  position: absolute;
 }
 
 #kundvagn-ikon:hover{
@@ -214,3 +243,48 @@ width: 50vw;
 .kryss{
  cursor: pointer;
 }
+
+.cart-pic{
+  height: 100px;
+  width: 100px;
+}
+
+.cart-item{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /*margin-bottom: 100px;
+  margin-top: 40px;
+  margin-left: 30px;*/
+  padding: 20px;
+  position: relative;
+}
+
+
+
+
+
+.cart-header {
+  position: sticky;
+  top: 0;
+  padding: 10px; 
+  z-index: 1000; 
+}
+
+
+
+.cart-header .exitbutton {
+  position: absolute;
+  top: 10px; 
+  right: 10px;
+  cursor: pointer;
+  
+}
+
+.cart-footer .lets-buy {
+ 
+  cursor: pointer;
+  
+}
+
+
