@@ -267,6 +267,7 @@ function addToCart(productId){
 
 document.querySelector('#kundvagn-ikon').addEventListener('click', () => {
 
+    
     const productSet = new Set(shoppingCart)
     console.log(productSet)
   
@@ -310,7 +311,8 @@ document.querySelector('#kundvagn-ikon').addEventListener('click', () => {
         console.log('Product with ID', productId, 'found:', product);
         console.log('Cart Element:', cartElement);
         if (product){
-            
+            var showTrashAgain = document.querySelector('.empty-all');
+            showTrashAgain.style.display = 'block';
             //console.log(`Alla priser: ${totalPriceList}`);
 
           //  totalSumInCart += product.price;
@@ -336,16 +338,32 @@ document.querySelector('#kundvagn-ikon').addEventListener('click', () => {
             
 
             var amount = document.createElement('p');
-            amount.textContent = `Amount: ${amountInShoppingCart}`;
-            amount.className = "cart-amount";
+            amount.textContent = `Amount `;
+            amount.className = "cart-amount ms-5";
         
             productDiv.appendChild(amount);
 
-            var amount = document.createElement('p');
+             var amountPlus = document.createElement('button');
+            amountPlus.textContent = '\u002b';
+            amountPlus.className ="amount-plus"
+            productDiv.appendChild(amountPlus);
+
+            var amountInput = document.createElement('input');
+            amountInput.value = amountInShoppingCart;
+            amountInput.className = "amount-input"
+            productDiv.appendChild(amountInput);
+
+            var amountMinus = document.createElement('button');
+            amountMinus.textContent = '\u2212';
+            amountMinus.className = "amount-minus"
+            productDiv.appendChild(amountMinus);
+            
+
+           
 
             var price = document.createElement('p');
             price.textContent = 'Á-Price: $'+product.price;
-            price.className ="cart-price d-flex align-items-end";
+            price.className ="cart-price d-flex align-items-end mt-3";
             productDiv.appendChild(price);
            
 
@@ -393,15 +411,7 @@ document.querySelector('#kundvagn-ikon').addEventListener('click', () => {
             var changeSum = document.querySelector('.totalSum');
             changeSum.textContent = `Total Price: $${totalHeaderSum}`;
 
-           /* var amountPlus = document.createElement('button');
-            amountPlus.textContent = '\u002b';
-            amountPlus.className ="amount-plus"
-            productDiv.appendChild(amountPlus);
-
-            var amountMinus = document.createElement('button');
-            amountPlus.textContent = '\u002d';
-            amountMinus.className = "amount-minus"
-            productDiv.appendChild(amountMinus);*/
+           
 
             /*var amountInput = document.createElement('input');
             input.type = 'number';
@@ -424,7 +434,10 @@ document.querySelector('#kundvagn-ikon').addEventListener('click', () => {
     //document.querySelector('.cart').appendChild(pTitle);
 });
 
+/*document.querySelector('.amount-plus').addEventListener('click', () => {
+    shoppingCart.push
 
+})*/
 
 
 //Stänga ner varukorgen
@@ -450,14 +463,21 @@ document.querySelector('.empty-all').addEventListener('click', () => {
     var deleteCart = document.querySelector('.cart-center');
     var deleteCartPrice = document.querySelector('.totalSum');
     var deleteCartTrash = document.querySelector('.empty-all');
+    var deleteCounter = document.querySelector('.counter');
 
     deleteCart.innerHTML = "";
     deleteCartPrice.textContent ="";
     deleteCartTrash.style.display ="none";
+    deleteCounter.style.display ="none";
 
     //updateCartGui();
     
 })
+
+/*document.querySelector('.card-button').addEventListener('click', () => {
+    var showTrash = document.querySelector('.empty-all');
+    showTrash.style.display = 'block';
+})*/
 
 
 /*document.querySelector('.delete-one-product').forEach(button => {
