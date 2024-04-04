@@ -48,87 +48,90 @@
           <p class="info-price"></p>
         </div>
 
-        <div
-          class="col d-flex flex-column justify-content-center align align-items-center mt-4"
-        >
-          <form id="kontaktForm">
-            <label id="namn">Namn:</label><br />
-            <input
-              type="text"
-              name="firstname"
-              class="name"
-              placeholder="Namn"
-              minlength="2"
-              maxlength="50"
-              pattern="[A-Öa-ö ]+"
-              required
-            /><br /><br />
-            <label id="epost">Epost:</label><br />
-            <input
-              type="email"
-              class="mail"
-              placeholder="Exempel@gmail.com"
-              maxlength="50"
-              required
-            /><br /><br />
-            <label id="telefonnummer">Telefonnummer:</label><br />
-            <input
-              type="text"
-              class="phone"
-              placeholder="Telefonnummer"
-              maxlength="50"
-              pattern="[\d\(\)\-]+"
-              required
-            /><br /><br />
-            <div class="col" id="levAdress">
-              <label id="leveransadress">Leveransadress:</label><br />
-              <input
-                type="text"
-                name="address"
-                class="adress"
-                placeholder="Gatuadress"
-                minlength="2"
-                maxlength="50"
-                required
-              /><br />
-              <input
-                type="text"
-                class="zipcode"
-                placeholder="Postnummer"
-                minlength="5"
-                maxlength="5"
-                pattern="\d+"
-              /><br />
-              <input
-                type="text"
-                class="city"
-                placeholder="Ort"
-                min="2"
-                maxlength="50"
-                pattern="[A-Öa-ö]+"
-                required
-              />
-            </div>
-            <div
-              class="col d-flex flex-column justify-content-center align align-items-center mt-4 mb-4"
-            >
-              <button type="submit" class="btn btn-primary buy-button">
-                Buy now
-              </button>
-              <input
-                class="btn btn-warning info-button cancel-button"
-                type="button"
-                value="Cancel"
-              />
-            </div>
-          </form>
-        </div>
-
         <div class="cart">
           <div
             class="col d-flex flex-column justify-content-center align align-items-center mt-5"
           ></div>
         </div>
+      </div>
+    </div>
+
+    <div class="product-info order-form">
+      <div
+        class="col d-flex flex-column justify-content-center align align-items-center mt-4"
+      >
+        <form id="kontaktForm">
+          <label id="namn">Namn:</label><br />
+          <input
+            type="text"
+            name="firstname"
+            class="name"
+            placeholder="Namn"
+            minlength="2"
+            maxlength="50"
+            pattern="[A-Öa-ö ]+"
+            required
+          /><br /><br />
+          <label id="epost">Epost:</label><br />
+          <input
+            type="email"
+            class="mail"
+            placeholder="Exempel@gmail.com"
+            maxlength="50"
+            required
+          /><br /><br />
+          <label id="telefonnummer">Telefonnummer:</label><br />
+          <input
+            type="text"
+            class="phone"
+            placeholder="Telefonnummer"
+            maxlength="50"
+            pattern="[\d\(\)\-]+"
+            required
+          /><br /><br />
+          <div class="col" id="levAdress">
+            <label id="leveransadress">Leveransadress:</label><br />
+            <input
+              type="text"
+              name="address"
+              class="adress"
+              placeholder="Gatuadress"
+              minlength="2"
+              maxlength="50"
+              required
+            /><br />
+            <input
+              type="text"
+              name="postal-code"
+              class="zipcode"
+              placeholder="Postnummer"
+              minlength="5"
+              maxlength="5"
+              pattern="\d+"
+            /><br />
+            <input
+              type="text"
+              class="city"
+              placeholder="Ort"
+              min="2"
+              maxlength="50"
+              pattern="[A-Öa-ö]+"
+              required
+            />
+          </div>
+          <div
+            class="col d-flex flex-column justify-content-center align align-items-center mt-4 mb-4"
+          >
+            <button type="submit" class="btn btn-primary buy-button">
+              Buy now
+            </button>
+            <input
+              class="btn btn-warning info-button cancel-button"
+              type="button"
+              value="Cancel"
+            />
+          </div>
+        </form>
       </div>
     </div>
 

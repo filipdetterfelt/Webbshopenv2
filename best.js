@@ -1,4 +1,13 @@
-document.addEventListener('DOMContentLoaded', function() {
+import { fetchProducts } from './fetch.js';
+
+const shoppingCart = JSON.parse(localStorage.getItem("shoppingCart")) || [];
+const productList = await fetchProducts();
+const shoppingCartSet = new Set(shoppingCart)
+console.log(shoppingCartSet)
+console.log(productList)
+productList.forEach(product => console.log(typeof product))
+
+
     var customerData = JSON.parse(localStorage.getItem('customerData'));
     if (customerData) {
         var bstInfoSite = document.getElementById('beställare');
@@ -15,7 +24,24 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log("Något gick fel, input saknas")
     }
 
-    var productData = JSON.parse(localStorage.getItem('productData'));
+
+    const filteredProducts = productList.filter(product => 
+        shoppingCartSet.has(product.id.toString())
+    )
+
+    console.log(filteredProducts)
+    var bestProduct = document.querySelector('#bstprodukter');
+    for(let product in filteredProducts){
+            console.log(typeof product)
+            const amount = shoppingCart.filter(id => Number(id) === product.id).length
+            const productPrice = product.price * amount;
+            var pTagg = document.createElement('p');
+            pTagg.className = 'confi-p'
+            pTagg.textContent = `Product: ${product.title} Amount: ${amount} Price: ${productPrice} `
+            bestProduct.appendChild(pTagg);
+    }
+
+    /* var productData = JSON.parse(localStorage.getItem('productData'));
     if(productData){
          var bestProduct = document.querySelector('#bstprodukter');
         for(var key in productData){
@@ -33,14 +59,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     } else {
         console.log(`Något gick fel, saknar Input`)
-    }
+    } */
 
     var datumBstElement = document.getElementById('datumBst')
     datumBstElement.innerHTML = '<h5>Beställningsdatum: ' + genereraDagensDatum() + '</h5>';
-
-
-    
-});
 
 
 
