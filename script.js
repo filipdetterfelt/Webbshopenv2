@@ -119,6 +119,7 @@ async function createCard() {
     console.log('cards created')
 }
 
+
 createCard();
 
 //Funktion för att Visa cart
@@ -259,6 +260,7 @@ function addToCart(productId){
  function loadCart(){
     const shopingcart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
     const cartElement = document.querySelector('.cart');
+    const cartElementCenter = document.querySelector('.cart-center');
     cartElement.style.display = 'block';
     
  }
@@ -267,7 +269,7 @@ function addToCart(productId){
 
 document.querySelector('#kundvagn-ikon').addEventListener('click', () => {
 
-    
+   
     const productSet = new Set(shoppingCart)
     console.log(productSet)
   
@@ -321,6 +323,7 @@ document.querySelector('#kundvagn-ikon').addEventListener('click', () => {
 
             var productDiv = document.createElement('div');
             productDiv.classList.add('cart-item');
+            productDiv.dataset.productId = productId;
 
             var image = document.createElement('img');
             image.src = product.image;
@@ -393,6 +396,7 @@ document.querySelector('#kundvagn-ikon').addEventListener('click', () => {
             sum.textContent = `Total price: $${totalSum}`
             sum.className ="cart-sum";
             productDiv.appendChild(sum);
+
             
            
             headerPrice.push(totalSum);
@@ -446,6 +450,7 @@ document.querySelector('.kryss').addEventListener('click', ()=>{
     const cart = document.querySelector('.cart');
     cart.style.display ='none';
     const cartCenter = document.querySelector('.cart-center');
+    
 
     
 
@@ -473,6 +478,83 @@ document.querySelector('.empty-all').addEventListener('click', () => {
     //updateCartGui();
     
 })
+
+
+document.querySelector('.cart-center').addEventListener('click', (event) => {
+    //const changeCounter = document.querySelector('.counter');
+    if(event.target.classList.contains('delete-one-product')){
+
+        
+        console.log("Delete")
+        var productDiv = event.target.closest('.cart-item');
+        
+        if(productDiv){
+            var productId = productDiv.dataset.productId;
+            console.log("Product id: " + productId)
+            var productIndex = shoppingCart.indexOf(productId);
+            console.log("productindex: " + productIndex)
+            console.log(`Före splice ${shoppingCart}`);
+
+            if(productIndex !== -1){
+                shoppingCart.splice(productIndex, 1);
+                console.log(`Efter splice ${shoppingCart}`);
+                console.log(`productIndex: ${productIndex}`);
+            }
+            productDiv.remove();
+            /*var changeTotalPrice = document.querySelector('.totalSum');
+            changeTotalPrice.textContent = totalSum ;*/
+           /* if(shoppingCart < 0){
+            counter.textContent = shoppingCart.length -1;
+            }
+            else if(shoppingCart == 0){
+                counter.style.display = 'none';
+            }*/
+
+        }
+    }
+});
+
+document.querySelector('.cart-center').addEventListener('click', (event) => {
+    if(event.target.classList.contains('amount-plus')){
+        console.log("pluss")
+        var productDiv = event.target.closest('.cart-item');
+        
+        if(productDiv){
+            const productId =  parseInt (productDiv.dataset.productId);
+            const productIndex = shoppingCart.indexOf(productId);
+
+            if(productIndex !== -1){
+                const addProduct =  productList.find(product => product.id === productId);
+                if(addProduct){
+                    shoppingCart.push(addProduct.id);
+                    console.log('Product added: ', addProduct.id);
+                    amountInput.value = amountInShoppingCart;
+                    
+                }
+                
+            }
+        }
+    }
+});
+
+document.querySelector('.cart-center').addEventListener('click', (event) => {
+    if(event.target.classList.contains('amount-minus')){
+        console.log('Minus')
+    }
+})
+
+
+
+    
+        
+      
+      
+
+
+
+
+
+
 
 /*document.querySelector('.card-button').addEventListener('click', () => {
     var showTrash = document.querySelector('.empty-all');
