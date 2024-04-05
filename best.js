@@ -31,7 +31,7 @@ productList.forEach(product => console.log(typeof product))
 
     console.log(filteredProducts)
     var bestProduct = document.querySelector('#bstprodukter');
-    for(let product in filteredProducts){
+    for(let product of filteredProducts){
             console.log(typeof product)
             const amount = shoppingCart.filter(id => Number(id) === product.id).length
             const productPrice = product.price * amount;
