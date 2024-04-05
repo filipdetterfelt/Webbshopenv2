@@ -401,17 +401,43 @@ document.querySelector("#kundvagn-ikon").addEventListener("click", () => {
 
         const total = totalPriceList.reduce((total, sum) => total + sum).toFixed(2)
         document.querySelector('.totalSum').textContent = `Total Price: $${total}`;
-        
+        counter.textContent = shoppingCart.length;
+
       })
 
       amountMinus.addEventListener('click', e => {
+        totalPriceList.splice(productId)
         const prodId = e.target.getAttribute('product-id')
         const closestParent = e.target.closest('.cart-item');
         shoppingCart.splice(shoppingCart.indexOf(prodId), 1)
+        localStorage.setItem('shoppingCart', shoppingCart);
         const amount = shoppingCart.filter(id => id === prodId).length
 
+        amountInput.value = amount;
+        sum.textContent = `Total Price: $${amount * product.price}`;
+
+         /*const totalP = totalPriceList.reduce((total, price) => total + price, 0).toFixed(2)
+        document.querySelector('.totalSum').textContent = `Total Price: $${totalP}`;*/
+        const totalPriceMinus = document.querySelector('.totalSum');
+        let totalSumM = 0;
+        shoppingCart.forEach(productId => {
+          const product = productList.find(item => item.id === parseInt(productId));
+          if(product){
+            totalSumM += product.price;
+          }
+        });
+        totalPriceMinus.textContent = `Total Price: $${totalSumM.toFixed(2)}`;
+        counter.textContent = shoppingCart.length;
+        
+    
+        
+
         if(amount <= 0 ){
+          
           closestParent.innerHTML = '';
+          counter.style.display = 'none';
+          /*document.querySelector('.totalSum').innerHTML ='';
+          document.querySelector('.empty-all').style.display = 'none';*/
         }
         
         console.log(`clicked minus product id: ${prodId}`)
