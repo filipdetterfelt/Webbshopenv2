@@ -232,7 +232,7 @@ cancelButton.addEventListener("click", function () {
 });
 
 function addToCart(productId) {
-  /*  var shopingCart = JSON.parse(localStorage.getItem('shoppingCart')); */
+    var shopingCart = JSON.parse(localStorage.getItem('shoppingCart')); 
 
   shoppingCart.push(productId.toString());
 
