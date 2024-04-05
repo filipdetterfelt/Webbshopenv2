@@ -361,6 +361,12 @@ cursor: pointer;
   margin-right: 20px;
 }
 
+.cart-pic-update{
+  width: 50%;
+  height: 50%;
+  margin-right: 20px;
+}
+
 /*.navbar{
   display: flex;
   justify-content: space-around;

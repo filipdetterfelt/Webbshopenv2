@@ -3,6 +3,8 @@ import { fetchProducts } from "./fetch.js";
 const shoppingCart = JSON.parse(localStorage.getItem("shoppingCart")) || [];
 const counter = document.getElementById("counter");
 //var totalPriceList = [];
+
+updateCartGui()
 if (shoppingCart.length <= 0) {
   counter.style.display = "none";
 } else {
@@ -321,8 +323,11 @@ document.querySelector("#kundvagn-ikon").addEventListener("click", () => {
 
       var amountPlus = document.createElement("button");
       amountPlus.textContent = "\u002b";
-      amountPlus.className = "amount-plus";
+      amountPlus.classList.add("amount-plus");
+      amountPlus.setAttribute('product-id', product.id)
       productDiv.appendChild(amountPlus);
+
+      
 
       var amountInput = document.createElement("input");
       amountInput.value = amountInShoppingCart;
@@ -332,7 +337,12 @@ document.querySelector("#kundvagn-ikon").addEventListener("click", () => {
       var amountMinus = document.createElement("button");
       amountMinus.textContent = "\u2212";
       amountMinus.className = "amount-minus";
+      amountMinus.setAttribute('product-id', product.id)
       productDiv.appendChild(amountMinus);
+
+      
+
+      
 
       var price = document.createElement("p");
       price.textContent = "Á-Price: $" + product.price;
@@ -376,6 +386,38 @@ document.querySelector("#kundvagn-ikon").addEventListener("click", () => {
       console.log(`Det totala priset är ${totalHeaderSum}`);
       var changeSum = document.querySelector(".totalSum");
       changeSum.textContent = `Total Price: $${totalHeaderSum}`;
+
+      amountPlus.addEventListener('click', e => {
+        totalPriceList.push(product.price);
+        const prodId = e.target.getAttribute('product-id')
+        console.log(`clicked plus product id: ${prodId}`)
+        shoppingCart.push(prodId)
+        localStorage.setItem('shoppingCart', shoppingCart)
+
+        const amount = shoppingCart.filter(id => id === prodId).length
+        amountInput.value = amount
+
+        sum.textContent = `Total price: $${amount * product.price}`;
+
+        const total = totalPriceList.reduce((total, sum) => total + sum).toFixed(2)
+        document.querySelector('.totalSum').textContent = `Total Price: $${total}`;
+        
+      })
+
+      amountMinus.addEventListener('click', e => {
+        const prodId = e.target.getAttribute('product-id')
+        const closestParent = e.target.closest('.cart-item');
+        shoppingCart.splice(shoppingCart.indexOf(prodId), 1)
+        const amount = shoppingCart.filter(id => id === prodId).length
+
+        if(amount <= 0 ){
+          closestParent.innerHTML = '';
+        }
+        
+        console.log(`clicked minus product id: ${prodId}`)
+        
+        
+      })
 
       /*var amountInput = document.createElement('input');
             input.type = 'number';
@@ -486,34 +528,98 @@ function calculateSum() {
   return totalPrice.toFixed(2);
 }
 
-document.querySelector(".cart-center").addEventListener("click", (event) => {
+document.querySelector(".footer-box").addEventListener("click", (event) => {
+  console.log('plus tryckt')
+  const prodId = event.target.getAttribute('product-id');
+  console.log(`this product ID is ${prodId}`)
   if (event.target.classList.contains("amount-plus")) {
     console.log("pluss");
     var productDiv = event.target.closest(".cart-item");
 
     if (productDiv) {
       const productId = parseInt(productDiv.dataset.productId);
-      const productIndex = shoppingCart.indexOf(productId);
+     // const productIndex = shoppingCart.indexOf(productId);
+      shoppingCart.push(productId);
 
-      if (productIndex !== -1) {
+      
+
+      document.querySelector('.amount-input').textContent = shoppingCart.filter(id => Number(id) == productId).length
+      const totalPriceItem = document.querySelector('.sum');
+      const totalPriceCart = document.querySelector('.totalSum');
+        
+        //updateCartGui();
+        
+         
+        /* var amountInput = document.querySelector('.amount-input');
         const addProduct = productList.find(
           (product) => product.id === productId
         );
         if (addProduct) {
           shoppingCart.push(addProduct.id);
           console.log("Product added: ", addProduct.id);
-          amountInput.value = amountInShoppingCart;
-        }
-      }
+          amountInput.value = Number(amountInput.value) + 1;
+        
+        //productDiv.add();
+        var totalHeaderSum = document.querySelector(".totalSum");
+          
+        totalHeaderSum.textContent = `Total Price: $${calculateSum()}`;
+  
+        if (shoppingCart.length >= 1) {
+          localStorage.setItem("shoppingCart", shoppingCart);
+          //document.querySelector('.counter').style.display = 'none';
+          document.querySelector('.totalSum').textContent = totalHeaderSum;
+          //document.querySelector('.empty-all').style.display = 'none';
+          
+         
+          localStorage.setItem("shoppingCart", shoppingCart);
+          changeCounter(shoppingCart.length)
+          var changeAmount = document.querySelector('.amount-input');
+          changeAmount.value = shoppingCart.length;
+          updateCartGui()
+        } 
+      }*/
     }
   }
 });
 
-document.querySelector(".cart-center").addEventListener("click", (event) => {
+document.querySelector(".footer-box").addEventListener("click", (event) => {
+  console.log('cart center tryckt')
   if (event.target.classList.contains("amount-minus")) {
     console.log("Minus");
+    var productDiv = event.target.closest('.cart-item');
+
+    if(productDiv){
+      var productId = productDiv.dataset.productId;
+      var productIndex = shoppingCart.indexOf(productId);
+
+      if(productIndex !== -1){
+       /* const amount = shoppingCart.filter((id) => productId === id).length;*/
+        shoppingCart.splice(productIndex, 1);
+      }
+      
+      productDiv.remove();
+      var totalHeaderSum = document.querySelector(".totalSum");
+          
+          totalHeaderSum.textContent = `Total Price: $${calculateSum()}`;
+    
+          if (shoppingCart.length <= 0) {
+            localStorage.removeItem("shoppingCart");
+            document.querySelector('.counter').style.display = 'none';
+            document.querySelector('.totalSum').textContent = '';
+            document.querySelector('.empty-all').style.display = 'none';
+            
+          } else {
+            localStorage.setItem("shoppingCart", shoppingCart);
+            changeCounter(shoppingCart.length)
+            /*var changeAmount = document.querySelector('.amount-input');
+            changeAmount.value = shoppingCart.length;*/
+            updateCartGui();
+          }
+    }
   }
 });
+
+
 
 document.querySelector('.product-info').addEventListener('click', () => {
     document.querySelector('.product-info').style.display = 'none';
@@ -543,21 +649,86 @@ document.querySelector('.lets-buy').addEventListener('click', () => {
     });
 });*/
 
-/*function updateCartGui(){
-    const cartItemsE = document.querySelector('.cart-items'); //cart-center ist ???
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'update_cart.php');
-    xhr.onload = function (){
-        if(xhr.status === 200){
-            cartItemsE.innerHTML = xhr.responseText;
-        }
-        else{
-            console.error("Failed to update the cart:", xhr.statusText);
-        }
-    };
-    xhr.onerror = function(){
-        ("Failed to update cart:",xhr.statusText);
-    };
-    xhr.send();
+function updateCartGui() {
+  const cartElement = document.querySelector('.cart-center');
+  cartElement.innerHTML = ''; // Ta bort alla befintliga produkter från varukorgen
+ 
+  
+  new Set(shoppingCart).forEach(productId => {
+    const product = productList.find(item => item.id === parseInt(productId));
     
-}*/
+    if (product) {
+      const productDiv = document.createElement('div');
+      productDiv.classList.add('cart-item');
+      productDiv.dataset.productId = productId;
+
+      // Skapa och fyll i HTML-elementet för produkten
+      var image = document.createElement("img");
+      image.src = product.image;
+      image.alt = product.title;
+      image.className = "cart-pic";
+      productDiv.appendChild(image);
+
+      var title = document.createElement("p");
+      title.textContent += product.title;
+      title.className = "cart-title";
+      productDiv.appendChild(title);
+
+      var amount = document.createElement("p");
+      amount.textContent = `Amount `;
+      amount.className = "cart-amount ms-5";
+      productDiv.appendChild(amount);
+
+      const amountInShoppingCart = shoppingCart.filter(
+        (id) => id === productId
+      ).length;
+
+      var amountInput = document.createElement("input");
+      amountInput.value = amountInShoppingCart;
+      amountInput.className = "amount-input";
+      productDiv.appendChild(amountInput);
+
+      var amountPlus = document.createElement("button");
+      amountPlus.textContent = "\u002b";
+      amountPlus.className = "amount-plus";
+      amountPlus.setAttribute('product-id', product.id)
+      productDiv.appendChild(amountPlus);
+
+      var amountMinus = document.createElement("button");
+      amountMinus.textContent = "\u2212";
+      amountMinus.className = "amount-minus";
+      amountMinus.setAttribute('product-id', product.id)
+      productDiv.appendChild(amountMinus);
+
+      amountMinus.addEventListener('click', () => {
+        console.log('Minus tryckt')
+      })
+
+      var price = document.createElement("p");
+      price.textContent = "Á-Price: $" + product.price;
+      price.className = "cart-price d-flex align-items-end mt-3";
+      productDiv.appendChild(price);
+
+      
+     var totPrice = product.price * amountInShoppingCart;
+     
+      var sum = document.createElement("p");
+      sum.textContent = `Total price: $${totPrice}`;
+      sum.className = "cart-sum";
+      productDiv.appendChild(sum);
+      
+      var deleteOneProduct = document.createElement("img");
+      deleteOneProduct.src = "images/trash.png";
+      deleteOneProduct.className = "delete-one-product";
+      productDiv.appendChild(deleteOneProduct);
+
+      // Lägg till produktdiv i varukorgen i DOM
+      cartElement.appendChild(productDiv);
+    }
+  });
+
+  // Uppdatera eventuella tillhörande siffror eller totalsummor i varukorgen
+  const totalHeaderSum = document.querySelector('.totalSum');
+  totalHeaderSum.textContent = `Total Price: $${calculateSum()}`;
+}
+
